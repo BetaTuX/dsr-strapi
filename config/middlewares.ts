@@ -1,9 +1,32 @@
 import type { Core } from '@strapi/strapi';
 
-const config: Core.Config.Middlewares = [
+const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Middlewares => ([
   'strapi::logger',
   'strapi::errors',
-  'strapi::security',
+  {
+    name: 'strapi::security',
+    config: {
+      contentSecurityPolicy: {
+        useDefaults: true,
+        directives: {
+          'connect-src': ["'self'", 'https:'],
+          'img-src': [
+              "'self'",
+              'data:',
+              'blob:',
+              `https://${env('AWS_BUCKET')}.s3.${env('AWS_REGION')}.amazonaws.com`,
+          ],
+          'media-src': [
+              "'self'",
+              'data:',
+              'blob:',
+              `https://${env('AWS_BUCKET')}.s3.${env('AWS_REGION')}.amazonaws.com`,
+          ],
+          upgradeInsecureRequests: null,
+        },
+      },
+    },
+  },
   'strapi::cors',
   'strapi::poweredBy',
   'strapi::query',
@@ -11,6 +34,6 @@ const config: Core.Config.Middlewares = [
   'strapi::session',
   'strapi::favicon',
   'strapi::public',
-];
+]);
 
 export default config;
