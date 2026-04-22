@@ -31,6 +31,10 @@ jobs:
             AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
             AWS_REGION=${{ vars.AWS_REGION }}
             AWS_BUCKET=${{ vars.AWS_BUCKET }}
+            DATABASE_CLIENT=${{ vars.DATABASE_CLIENT }}
+            JWT_SECRET=${{ secrets.JWT_SECRET }}
+            ADMIN_JWT_SECRET=${{ secrets.ADMIN_JWT_SECRET }}
+            NODE_ENV=${{ vars.NODE_ENV }}
             DATABASE_HOST=${{ vars.DATABASE_HOST }}
             DATABASE_PORT=5432
             DATABASE_NAME=${{ vars.DATABASE_NAME }}
